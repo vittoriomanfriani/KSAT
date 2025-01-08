@@ -43,7 +43,7 @@ def simann(probl,
     # Set up the initial configuration, compute and print the initial cost
     probl.init_config()
     c = probl.cost()
-    print(f"initial cost = {c}")
+    #print(f"initial cost = {c}")
     #print(probl.x)
 
     ## Keep the best cost seen so far, and its associated configuration.
@@ -76,8 +76,8 @@ def simann(probl,
                 if c <= best_c:
                     best_c = c
                     best = probl.copy()
-        print(f"acc.rate={accepted/mcmc_steps} beta={beta} c={c} [best={best_c}]")
+        #print(f"acc.rate={accepted/mcmc_steps} beta={beta} c={c} [best={best_c}]")
 
     ## Return the best instance
-    print(f"final cost = {best_c}")
+    #print(f"final cost = {best_c}")
     return best
