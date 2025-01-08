@@ -84,7 +84,7 @@ class KSAT:
         # Compute the cost for the new proposed x
         new_cost = self.cost(influenced_clauses)
 
-        # Flip back x to its initial form
+        # Flip back x to its initial value
         self.accept_move(move)
 
         # Return the difference between the new and the initial cost
