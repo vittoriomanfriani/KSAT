@@ -27,7 +27,8 @@ def accept(delta_c, beta):
 def simann(probl,
            anneal_steps = 10, mcmc_steps = 100,
            beta0 = 0.1, beta1 = 10.0,
-           seed = None, debug_delta_cost = False):
+           seed = None, debug_delta_cost = False, optimize = True,
+           acceptance_rate = False):
     ## Optionally set up the random number generator state
     if seed is not None:
         np.random.seed(seed)
@@ -80,10 +81,13 @@ def simann(probl,
 
                     # break if the solution is founded (cost = 0)
                     if best.cost() == 0:
-                        #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
-                        return best
+                        if optimize:
+                            #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
+                            return best
         #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
         acc_rate.append(accepted / mcmc_steps)
     ## Return the best instance
     #print(f"final cost = {best_c}")
+    if acceptance_rate:
+        return best, acc_rate
     return best

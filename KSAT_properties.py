@@ -9,7 +9,7 @@ importlib.reload(Utils)
 def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 200):
     ksat = KSAT.KSAT(N = N, M = M, K = 3, seed=45)
     numbers_solved = 0
-    for _ in range(trials):
+    for k in range(trials):
         best = SimAnn.simann(ksat,
                              mcmc_steps=mcmc_steps, anneal_steps=20,
                              beta0=1, beta1=10.0,
