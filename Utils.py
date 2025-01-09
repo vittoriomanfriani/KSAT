@@ -11,7 +11,7 @@ def grad_desc1d(function, x0, alpha = 100, max_iters = 100, grad_f = None, epsil
     x = x0
 
     # repeat for max_iters times
-    for k in tqdm(range(max_iters)):
+    for _ in tqdm(range(max_iters)):
     # add a stopping criterion based on the value of the gradient
         p = grad_f(x)
         x = int(round(x - alpha * p))

@@ -12,8 +12,8 @@ def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 100):
     numbers_solved = 0
     for _ in range(trials):
         best = SimAnn.simann(ksat,
-                             mcmc_steps=mcmc_steps, anneal_steps=10,
-                             beta0=5, beta1=10.0,
+                             mcmc_steps=mcmc_steps, anneal_steps=30,
+                             beta0=1, beta1=10.0,
                              seed=None,
                              debug_delta_cost=False)
         if best.cost() == 0:
@@ -21,22 +21,22 @@ def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 100):
 
     return numbers_solved/trials
 
-def find_threshold(N, target_prob=0.5, trials=30, min_M=100, max_M=2000, max_steps = 10):
+def find_threshold(N, target_prob=0.5, trials=30, min_M=100, max_M=2000, max_steps = 10, epsilon = 0.05):
     steps = 0
     while max_M - min_M > 1:
         mid_M = (min_M + max_M) // 2
         prob = empirical_probability(mid_M, N=N, trials=trials, mcmc_steps=100)
         print(prob, mid_M)
-        if prob < target_prob:
+        if abs(target_prob - prob) <= epsilon or prob == target_prob:
+            return mid_M
+        elif prob < target_prob:
             max_M = mid_M
         elif prob > target_prob:
             min_M = mid_M
-        elif prob == target_prob:
-            return mid_M
+
         steps += 1
         if steps >= max_steps:
             break
-        #print(steps, max_M - min_M)
     return mid_M
 
 def loss_function(M, n):

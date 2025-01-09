@@ -76,8 +76,12 @@ def simann(probl,
                 if c <= best_c:
                     best_c = c
                     best = probl.copy()
-        #print(f"acc.rate={accepted/mcmc_steps} beta={beta} c={c} [best={best_c}]")
 
+                    # break if the solution is founded (cost = 0)
+                    if best.cost() == 0:
+                        #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
+                        return best
+        #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
     ## Return the best instance
     #print(f"final cost = {best_c}")
     return best
