@@ -26,7 +26,7 @@ def find_threshold(N, target_prob=0.5, trials=30, min_M=100, max_M=2000, max_ste
         mid_M = (min_M + max_M) // 2
         prob = empirical_probability(mid_M, N=N, trials=trials, mcmc_steps=200)
         #print(prob, mid_M)
-        if abs(target_prob - prob) <= epsilon or prob == target_prob:
+        if prob == target_prob:
             return mid_M
         elif prob < target_prob:
             max_M = mid_M
