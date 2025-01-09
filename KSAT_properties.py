@@ -6,13 +6,12 @@ importlib.reload(SimAnn)
 importlib.reload(KSAT)
 importlib.reload(Utils)
 
-
-def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 100):
+def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 200):
     ksat = KSAT.KSAT(N = N, M = M, K = 3, seed=45)
     numbers_solved = 0
     for _ in range(trials):
         best = SimAnn.simann(ksat,
-                             mcmc_steps=mcmc_steps, anneal_steps=30,
+                             mcmc_steps=mcmc_steps, anneal_steps=20,
                              beta0=1, beta1=10.0,
                              seed=None,
                              debug_delta_cost=False)
@@ -25,7 +24,7 @@ def find_threshold(N, target_prob=0.5, trials=30, min_M=100, max_M=2000, max_ste
     steps = 0
     while max_M - min_M > 1:
         mid_M = (min_M + max_M) // 2
-        prob = empirical_probability(mid_M, N=N, trials=trials, mcmc_steps=100)
+        prob = empirical_probability(mid_M, N=N, trials=trials, mcmc_steps=200)
         print(prob, mid_M)
         if abs(target_prob - prob) <= epsilon or prob == target_prob:
             return mid_M

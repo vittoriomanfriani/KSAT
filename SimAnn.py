@@ -50,6 +50,7 @@ def simann(probl,
     best = probl.copy()
     best_c = c
 
+    acc_rate = []
     # Main loop of the annaling: Loop over the betas
     for beta in beta_list:
         ## At each beta, we want to record the acceptance rate, so we need a
@@ -82,6 +83,7 @@ def simann(probl,
                         #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
                         return best
         #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
+        acc_rate.append(accepted / mcmc_steps)
     ## Return the best instance
     #print(f"final cost = {best_c}")
     return best
