@@ -44,8 +44,7 @@ def simann(probl,
     # Set up the initial configuration, compute and print the initial cost
     probl.init_config()
     c = probl.cost()
-    #print(f"initial cost = {c}")
-    #print(probl.x)
+
 
     ## Keep the best cost seen so far, and its associated configuration.
     best = probl.copy()
@@ -60,34 +59,29 @@ def simann(probl,
         # For each beta, perform a number of MCMC steps
         for t in range(mcmc_steps):
             move = probl.propose_move()
-            #print(probl.x)
             delta_c = probl.compute_delta_cost(move)
             ## Optinal (expensive) check that `compute_delta_cost` works
             if debug_delta_cost:
                 probl_copy = probl.copy()
                 probl_copy.accept_move(move)
                 assert abs(c + delta_c - probl_copy.cost()) < 1e-10
-            ## Metropolis rule
-            #print(probl.x, c, move, delta_c, accept(delta_c, beta))
 
             if accept(delta_c, beta):
                 probl.accept_move(move)
-                #print(probl.x)
                 c += delta_c
                 accepted += 1
                 if c <= best_c:
                     best_c = c
                     best = probl.copy()
 
-                    # break if the solution is founded (cost = 0)
-                    if best.cost() == 0:
-                        if optimize:
-                            #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
+                    # If optimization is enabled, terminate early when a solution with cost = 0 is found
+                    if optimize:
+                        if best_c == 0:
                             return best_c
-        #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
+
         acc_rate.append(accepted / mcmc_steps)
-    ## Return the best instance
-    #print(f"final cost = {best_c}")
+    # If `acceptance_rate=True`, return the best cost and the list of acceptance rates
     if acceptance_rate:
         return best_c, acc_rate
+    # Otherwise, return only the best cost
     return best_c

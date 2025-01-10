@@ -7,7 +7,7 @@ importlib.reload(KSAT)
 importlib.reload(Utils)
 
 
-def empirical_probability(M, N=200, trials=30, mcmc_steps=200):
+def empirical_probability(M, N=200, trials=30, mcmc_steps=500):
     # Create a K-SAT problem instance with N variables, M clauses, and K=3 (3-SAT).
     ksat = KSAT.KSAT(N=N, M=M, K=3, seed=None)
     # Initialize a counter to track the number of trials where a solution is found.
