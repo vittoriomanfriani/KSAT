@@ -83,11 +83,11 @@ def simann(probl,
                     if best.cost() == 0:
                         if optimize:
                             #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
-                            return best
+                            return best_c
         #print(f"acc.rate={accepted / mcmc_steps} beta={beta} c={c} [best={best_c}]")
         acc_rate.append(accepted / mcmc_steps)
     ## Return the best instance
     #print(f"final cost = {best_c}")
     if acceptance_rate:
-        return best, acc_rate
-    return best
+        return best_c, acc_rate
+    return best_c

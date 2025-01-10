@@ -10,12 +10,12 @@ def empirical_probability(M, N = 200, trials = 30, mcmc_steps = 200):
     ksat = KSAT.KSAT(N = N, M = M, K = 3, seed=45)
     numbers_solved = 0
     for k in range(trials):
-        best = SimAnn.simann(ksat,
+        best_c = SimAnn.simann(ksat,
                              mcmc_steps=mcmc_steps, anneal_steps=20,
                              beta0=1, beta1=10.0,
                              seed=None,
                              debug_delta_cost=False)
-        if best.cost() == 0:
+        if best_c == 0:
             numbers_solved += 1
 
     return numbers_solved/trials
