@@ -18,3 +18,6 @@ This repository includes:
   - Empirical analysis to determine the number of clauses where the probability of solving the problem drops to 50%.
 - **Performance Tracking**:
   - Tracks metrics like acceptance rate, solution quality, and computational cost.
+ 
+Note: all the intervals where computed considering a parameter mcmc_steps = 500
+
