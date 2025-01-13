@@ -33,6 +33,9 @@ def simann(probl,
     if seed is not None:
         np.random.seed(seed)
 
+    if optimize == acceptance_rate:
+        raise Exception("The parameters 'optimize' and 'acceptance_rate' cannot both be True. Enable only one to avoid conflicting behaviors.")
+
     # Set up the list of betas.
     # First allocate an array with the required number of steps
     beta_list = np.zeros(anneal_steps)
