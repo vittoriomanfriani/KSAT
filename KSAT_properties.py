@@ -57,7 +57,7 @@ def find_threshold(N, target_prob=0.5, trials=30, min_M=100, max_M=2000, max_ste
 def loss_function(M, n):
     return abs(0.5 - empirical_probability(M, n))
 
-def find_treshold_2(N, max_iters = 10, alpha = 1, grad_f = None, epsilon = 1e-8):
+def find_treshold_grad_desc(N, max_iters = 10, alpha = 1, grad_f = None, epsilon = 1e-8):
 
     if isinstance(N, list):
         M_alg = {}
